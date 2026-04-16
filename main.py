@@ -1,9 +1,31 @@
 from kivy.app import App
 from kivy.uix.label import Label
+from kivy.uix.button import Button
+from kivy.uix.boxlayout import BoxLayout
+from playsound import playsound
 
 class Tujisomee(App):
     def build(self):
-        return Label(text="Hello, User!")
+        self.label = Label(text="Hello, User!")
+    
+        btn = Button(text="Play Sound")
+        btn.bind(on_press=self.on_button_click)
+
+        layout = BoxLayout(orientation = "vertical")
+        layout.add_widget(self.label)
+        layout.add_widget(btn)
+
+        return layout
+
+    def on_button_click(self, instance):
+        playsound("./mp3/a.mp3")   
+    
+    
+    
+
+
+
+
 
 if __name__ == "__main__":
     Tujisomee().run()
