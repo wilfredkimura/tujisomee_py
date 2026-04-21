@@ -1,3 +1,4 @@
 from playsound import playsound
 
-playsound("./mp3/a.mp3")
+def play_sounds():
+    playsound("./mp3/a.mp3")
