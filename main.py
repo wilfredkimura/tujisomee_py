@@ -1,32 +1,59 @@
-from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-from kivy.uix.boxlayout import BoxLayout
-from playsound import playsound
+from kivy.app import App # Tells Kivy to run the main App class
+from kivy.uix.label import Label # Kivy Label Class
+from kivy.uix.button import Button # Kivy Button Class
+from kivy.uix.boxlayout import BoxLayout# Kivy BoxLayout class
+from playsound import playsound # Plays MP3 files
 
 class Tujisomee(App):
-    def build(self):
-        self.label = Label(text="Hello, User!")
-    
-        btn = Button(text="Play Sound")
-        btn.bind(on_press=self.on_button_click)
 
+    # add_widget is a native kivy method
+    # button_click_audio is user made method from func button_click_audio()
+    # self allows to access other things in the app like self.label within the main App class.
+
+    def build(self):
+        self.count = 0 # initialize count
+
+        # This are static text that never change when the program is being interpreted 
+        self.title_label_1 = Label(text="Hello, User!")
+        self.title_label_2 = Label(text="This is a simple Kivy program which is a Python Module")
+    
+        self.label = Label(text="0") # Dynamic text which changes from button_count()
+        self.button = Button(text="Play Sound")
+        # on_press is a built in event in Kivy
+        # bind() native Kivy method
+
+        self.button.bind(on_press=self.button_click_audio)
+        self.button.bind(on_press=self.button_count)
+
+        # rendering of elements on the screen     
         layout = BoxLayout(orientation = "vertical")
+        layout.add_widget(self.title_label_1)
+        layout.add_widget(self.title_label_2)
         layout.add_widget(self.label)
-        layout.add_widget(btn)
+        layout.add_widget(self.button)
 
         return layout
 
-    def on_button_click(self, instance):
-        playsound("./mp3/a.mp3")   
+    def button_click_audio(self, instance):
+        playsound("./mp3/a.mp3") 
+
+    def button_count(self, instance):
+        
+        self.count = self.count + 1
+        self.label.text = str(self.count) # This changes value of self count to be displayed by self.label.text object.
+
+
+
+
+    """
+    if self.button.bind(on_press=self.button_click_audio):
+            self.button_count = self.button_count + 1
+            self.label.text = Label(text=str(self.button_count))  
+    """
     
     
     
-
-
-
-
-
+    
 if __name__ == "__main__":
     Tujisomee().run()
 
